@@ -1,0 +1,45 @@
+# Audio Flamingo 2 CoT 部署配置文件
+
+# 路径配置
+paths:
+  # 环境根目录
+  env_root: "/mnt/afs/haizhouli-folder/interspeech/model_env/flamingo_cot"
+  
+  # 模型和代码
+  model_dir: "/mnt/afs/haizhouli-folder/interspeech/models/flamingo_cot"
+  code_dir: "/mnt/afs/haizhouli-folder/interspeech/models/flamingo_cot_bp/af2/inference_HF_pretrained"
+  
+  # 数据路径 - 您的实际数据
+  input_json: "/mnt/afs/haizhouli-folder/data/MMAR_questions.json"
+  audio_dir: "/mnt/afs/haizhouli-folder/interspeech/MMAR-main/MMAR-main/audio"
+  output_dir: "/mnt/afs/haizhouli-folder/interspeech/Results"
+  
+  # 工作目录
+  workspace: "/mnt/afs/haizhouli-folder/interspeech/model_env/flamingo_cot/workspace"
+  examples_dir: "/mnt/afs/haizhouli-folder/interspeech/model_env/flamingo_cot/workspace/examples"
+
+# 模型配置
+model:
+  # 可选: nvidia/audio-flamingo-2 (3B), nvidia/audio-flamingo-2-1. 5B, nvidia/audio-flamingo-2-0.5B
+  repo_id: "nvidia/audio-flamingo-2"  # 3B 模型
+  # HuggingFace Token (需要在 inference. py 中配置)
+  hf_token: "YOUR_HUGGINGFACE_TOKEN_HERE"
+  
+# 推理配置
+inference:
+  # 采样参数
+  temperature: 0.0  # 基准测试使用 0.0，生成使用 0.7-1.0
+  top_k: 50
+  top_p: 0.95
+  max_new_tokens: 512
+  
+  # 音频参数
+  sample_rate: 48000
+  max_audio_duration: 300  # 秒 (5分钟)
+
+# 硬件配置
+hardware: 
+  device:  "cuda"
+  gpu_id: 0
+  precision: "fp16"  # fp16 或 fp32
+
